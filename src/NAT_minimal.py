@@ -14,18 +14,12 @@ class Main:
     external_port = [] * 5
 
     for stun_servers in stun_servers:
-            try:
-                nat_type, external_ip, external_port = stun.get_ip_info(stun_host= stun_servers)
+        nat_type, external_ip, external_port = stun.get_ip_info(stun_host= stun_servers)
 
-                print("Server:" + stun_servers)
-                print("NAT Type:" + str(nat_type))
-                print("External IP:" + str(external_ip))
-                print("External Port:" + str(external_port) + "\n")
-            except ValueError as e:
-                if str(e) == "invalid literal for int() with base 16: ''":
-                    print("Error: No response from STUN server.")
-                else:
-                    raise e
+        print("Server:" + stun_servers)
+        print("NAT Type:" + str(nat_type))
+        print("External IP:" + str(external_ip))
+        print("External Port:" + str(external_port) + "\n")
+            
 
 a = Main()
-a.print_info()
