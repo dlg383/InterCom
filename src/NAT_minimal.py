@@ -7,25 +7,25 @@ class Main:
         'stun.cheapvoip.com',
         'stun.gmx.de',
         'stun.gmx.net',
-        'stun.ipfire.org',
-        'stun.linphone.org',
-        'stun.services.mozilla.com',
-        'stun.stunprotocol.org',
-        'stunserver.org'
-    ]
+        ]
 
-        nat_types = [0]
-        external_ips = [0]
-        external_ports = [0]
+    nat_type = [] * 5
+    external_ip = [] * 5
+    external_port = [] * 5
 
-    #def print_info(self):
-        for i in range(len(stun_servers)):
-            print(f"Server: {stun_servers[i]}")
-            print(f"NAT Type: {nat_types[i]}")
-            print(f"External IP: {external_ips[i]}")
-            print(f"External Port: {external_ports[i]}\n")
+    for stun_servers in stun_servers:
+            try:
+                nat_type, external_ip, external_port = stun.get_ip_info(stun_host= stun_servers)
 
-    def print_stun_servers(self):
-        print("Lista de servidores STUN:")
-        for server in self.stun_servers:
-            print(server)
+                print("Server:" + stun_servers)
+                print("NAT Type:" + str(nat_type))
+                print("External IP:" + str(external_ip))
+                print("External Port:" + str(external_port) + "\n")
+            except ValueError as e:
+                if str(e) == "invalid literal for int() with base 16: ''":
+                    print("Error: No response from STUN server.")
+                else:
+                    raise e
+
+a = Main()
+a.print_info()
