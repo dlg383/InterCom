@@ -40,12 +40,12 @@ parser.add_argument("-d", "--list-devices", action="store_true", help="Print the
 parser.add_argument("-s", "--frames_per_second", type=float, default=44100, help="sampling rate in frames/second")
 parser.add_argument("-c", "--frames_per_chunk", type=int, default=1024, help="Number of frames in a chunk")
 parser.add_argument("-l", "--listening_port", type=int, default=4444, help="My listening port")
-parser.add_argument("-a", "--destination_address", type=int_or_str, default="150.214.223.20", help="Destination (interlocutor's listening) address")
+parser.add_argument("-a", "--destination_address", type=int_or_str, default="localhost", help="Destination (interlocutor's listening) address")
 parser.add_argument("-p", "--destination_port", type=int, default=4444, help="Destination (interlocutor's listing-) port")
 parser.add_argument("-f", "--filename", type=str, help="Use a wav/oga/... file instead of the mic data")
 parser.add_argument("-t", "--reading_time", type=int, help="Time reading data (mic or file) (only with effect if --show_stats or --show_data is used)")
 
-class   Minimal:
+class Minimal:
     # Some default values:
     MAX_PAYLOAD_BYTES = 32768 # The maximum UDP packet's payload.
     #SAMPLE_TYPE = np.int16    # The number of bits per sample.
