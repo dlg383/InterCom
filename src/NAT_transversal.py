@@ -7,9 +7,3 @@ class ClaseHereda(Main):
         # Puedes añadir código adicional si es necesario
 
 #class Min(Minimal):
-
-
-
-if __name__ == "__main__":
-   mi_instancia = ClaseHereda()
-   mi_instancia.run()

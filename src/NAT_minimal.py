@@ -16,21 +16,21 @@ class Main:
         puerto = None
 
         for stun_server in self.stun_servers:
-            nat_type, external_ip, external_port = stun.get_ip_info(stun_host=stun_server)
+            nat_type, external_ip, external_port = stun.get_ip_info(stun_host= stun_server)
 
             puertos.add(external_port)  # Agregar el puerto al conjunto
+
+            
 
             if first_port is None:
                 first_port = external_port
             elif external_port != first_port:
                 no_simetrica = True
-                ip = external_ip
-                puerto = external_port
 
-           # print("Server:" + stun_server)
-            #print("NAT Type:" + str(nat_type))
-            #print("External IP:" + str(external_ip))
-            #print("External Port:" + str(external_port))
+            print("Server:" + stun_server)
+            print("NAT Type:" + str(nat_type))
+            print("External IP:" + str(external_ip))
+            print("External Port:" + str(external_port))
 
         if no_simetrica:
             print(f"La conexión no es simétrica. IP: {external_ip}, Puerto: {external_port}")
