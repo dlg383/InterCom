@@ -2,39 +2,63 @@ import stun
 
 class Main:
     stun_servers = [
-        'stun.l.google.com',
-        'stun.ekiga.net',
-        'stun.cheapvoip.com',
-        'stun.gmx.de',
+        "stun.1und1.de",
+    "stun.gmx.net",
+    "stun.l.google.com",
+    "stun1.l.google.com",
+    "stun2.l.google.com",
+    "stun3.l.google.com",
+    "stun4.l.google.com",
+    "numb.viagenie.ca",
+    "stun.12connect.com",
+    "stun.12voip.com",
+    "stun.1und1.de",
+    "stun.2talk.co.nz",
+    "stun.2talk.com",
+    "stun.3clogic.com",
+    "stun.3cx.com",
+    "stun.a-mm.tv",
+    "stun.aa.net.uk",
+    "stun.acrobits.cz",
+    "stun.actionvoip.com"
     ]
 
     def __init__(self):
         first_port = None  # Variable para almacenar el primer puerto
         puertos = set()  # Conjunto para almacenar los puertos
-        no_simetrica = True
-        ip = None
-        puerto = None
+        cont = 0
 
         for stun_server in self.stun_servers:
-            nat_type, external_ip, external_port = stun.get_ip_info(stun_host= stun_server)
+            nat_type, external_ip, external_port = stun.get_ip_info(stun_host=stun_server)
+            
+            if external_port and external_ip is None or external_port is None or external_ip is None:  # Verificar si external_port es None
+                continue
 
             puertos.add(external_port)  # Agregar el puerto al conjunto
-
             
-
-            if first_port is None:
-                first_port = external_port
-            elif external_port != first_port:
-                no_simetrica = True
-
+            
+            print("###########################################")
+            print("Recorrido")
+            print(cont) 
             print("Server:" + stun_server)
             print("NAT Type:" + str(nat_type))
             print("External IP:" + str(external_ip))
             print("External Port:" + str(external_port))
+            cont = cont + 1
 
-        if no_simetrica:
-            print(f"La conexión no es simétrica. IP: {external_ip}, Puerto: {external_port}")
+            if first_port is None:
+                first_port = external_port
+            elif external_port != first_port:
+                print("LA CONEXIÓN NO FUNCIONA")
+                return
+
+        if len(puertos) == 1:
+            print("###########################################")
+            print("###########################################")
+            print("###########################################")
+
+            print(f"La conexión es  NO SIMETRICA. Puerto: {first_port} IP: {external_ip}")
         else:
-            print("La conexión es simétrica.")
+            print("LA CONEXIÓN NO FUNCIONA")
 
 a = Main()
