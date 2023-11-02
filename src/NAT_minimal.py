@@ -6,21 +6,6 @@ class Main:
     "stun.gmx.net",
     "stun.l.google.com",
     "stun1.l.google.com",
-    "stun2.l.google.com",
-    "stun3.l.google.com",
-    "stun4.l.google.com",
-    "numb.viagenie.ca",
-    "stun.12connect.com",
-    "stun.12voip.com",
-    "stun.1und1.de",
-    "stun.2talk.co.nz",
-    "stun.2talk.com",
-    "stun.3clogic.com",
-    "stun.3cx.com",
-    "stun.a-mm.tv",
-    "stun.aa.net.uk",
-    "stun.acrobits.cz",
-    "stun.actionvoip.com"
     ]
 
     def __init__(self):
