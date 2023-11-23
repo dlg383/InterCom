@@ -1,51 +1,30 @@
-import argparse
+import sounddevice as sd
 import minimal
+import soundfile as sf
 
-class NAT_transversal(minimal.Minimal):
+class Obtener_ip_puerto():
     def obtener_ip_puerto(self):
-        
         destination_address = input("Ingrese la dirección IP de destino: ")
-        destination_port = input("Ingrese el puerto de destino: ")
-
-        try:
-            destination_port = int(destination_port)
-        except ValueError:
-            print("El puerto debe ser un número entero.")
-            return None, None
-
+        
+        while True:
+            destination_port = input("Ingrese el puerto de destino: ")
+            
+            try:
+                destination_port = int(destination_port)
+                break;
+            except ValueError:
+                    print("\033[91mEl puerto debe ser un número entero.\033[0m")
+            
         return destination_address, destination_port
 
-    def run(self):
-        # Obtiene la dirección IP y el puerto del usuario
-        destination_address, destination_port = self.obtener_ip_puerto()
+# Obtén la dirección IP y el puerto del usuario
+obtener_puerto = Obtener_ip_puerto()
+destination_address, destination_port = obtener_puerto.obtener_ip_puerto()
 
-        if destination_address is not None and destination_port is not None:
-            # Crea una instancia de la clase Minimal y ejecútala con los nuevos valores
-            minimal.args.destination_address = destination_address
-            minimal.args.destination_port = destination_port
-            minimal.run()
+# Modifica directamente las opciones en minimal.parser
+minimal.parser.set_defaults(destination_address=destination_address, destination_port=int(destination_port))
 
-if __name__ == "__main__":
-
-    try:
-        argcomplete.autocomplete(minimal.parser)
-    except Exception:
-        logging.warning("argcomplete not working :-/")
-
-    minimal.args = minimal.parser.parse_known_args()[0]
-    
-    if minimal.args.list_devices:
-        print("Available devices:")
-        print(sd.query_devices())
-        quit()
-
-    if minimal.args.show_stats or minimal.args.show_samples:
-        intercom = NAT_transversal()
-        
-    try:
-        intercom.run()
-    except KeyboardInterrupt:
-        minimal.parser.exit("\nSIGINT received")
-    finally:
-        intercom.print_final_averages()
-
+# Ejecuta el script minimal.py
+minimal.args = minimal.parser.parse_args()
+minimal.intercom = minimal.Minimal()  # Puedes cambiar a Minimal() si no necesitas la versión verbose
+minimal.intercom.run()
