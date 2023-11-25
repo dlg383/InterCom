@@ -23,12 +23,12 @@ class Main:
             
             
             print("###########################################")
-            print("Recorrido")
-            print(cont) 
+            print("Recorrido " + str(cont))
             print("Server:" + stun_server)
             print("NAT Type:" + str(nat_type))
             print("External IP:" + str(external_ip))
             print("External Port:" + str(external_port))
+            print("")
             cont = cont + 1
 
             if first_port is None:
@@ -40,9 +40,10 @@ class Main:
         if len(puertos) == 1:
             print("###########################################")
             print("###########################################")
-            print("###########################################")
 
             print(f"La conexión es  NO SIMETRICA. Puerto: {first_port} IP: {external_ip}")
+            print("###########################################")
+            print("")
         else:
             print("LA CONEXIÓN NO FUNCIONA")
 

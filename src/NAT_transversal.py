@@ -3,14 +3,19 @@ import minimal
 import soundfile as sf
 from NAT_minimal import Main
 
-class Obtener_ip_puerto(Main):
-    def __init__(self):
-        super().__init__()
-
+class Obtener_ip_puerto():
     def obtener_ip_puerto(self):
         destination_address = input("Ingrese la dirección IP de destino: ")
-        listening_port = input("Ingrese el puerto de escucha: ")
-
+        
+        while True:
+            listening_port = input("Ingrese el puerto de escucha: ")
+            
+            try:
+                listening_port = int(listening_port)
+                break;
+            except ValueError:
+                    print("\033[91mEl puerto debe ser un número entero.\033[0m")
+        
         while True:
             destination_port = input("Ingrese el puerto de destino: ")
             
