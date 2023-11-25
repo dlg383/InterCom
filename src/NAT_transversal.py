@@ -4,8 +4,6 @@ import soundfile as sf
 from NAT_minimal import Main
 
 class Obtener_ip_puerto(Main):
-
-
     def __init__(self):
         super().__init__()
 
