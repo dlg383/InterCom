@@ -1,8 +1,7 @@
 import numpy as np
-import buffer
+import buffer  # Asegúrate de que buffer está correctamente definido
 import argparse
 import sounddevice as sd
-import numpy as np
 import socket
 import time
 import psutil
@@ -16,16 +15,12 @@ import logging
 class EchoCancel(buffer.Buffering):
     def __init__(self):
         super().__init__()
-        #self.echo_delay = 10
-        #self.echo_attenuation = 0.5
 
     def calculate_echo_delay_and_attenuation(self):
-     
         self.echo_delay = 100000 
-        self.echo_attenuation = 0
+        self.echo_attenuation = 0.5
 
     def cancel_echo(self, chunk):
-       
         delayed_chunk = np.roll(chunk, self.echo_delay)
         delayed_chunk[:self.echo_delay] = 0
         return chunk - self.echo_attenuation * delayed_chunk
@@ -46,3 +41,12 @@ class EchoCancel(buffer.Buffering):
         self.send(packed_chunk)
         chunk = self.unbuffer_next_chunk()
         self.play_chunk(outdata, chunk)
+
+# Crea una instancia de la clase EchoCancel
+echo_cancel_instance = EchoCancel()
+
+# Asigna la instancia a buffer.intercom
+buffer.intercom = echo_cancel_instance
+
+# Ejecuta el método run de la instancia
+echo_cancel_instance.run()
